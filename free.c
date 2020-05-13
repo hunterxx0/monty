@@ -1,4 +1,4 @@
-#include "header.h"
+#include "monty.h"
 
 /**
  * free_mat - free a multidimensional array.
