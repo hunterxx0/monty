@@ -9,7 +9,8 @@
  */
 void pop(stack_t **h, unsigned int l)
 {
-	stack_t *t = (*h)->next;
+	stack_t *t = NULL;
+
 
 	if (*h == NULL)
 	{
@@ -17,6 +18,7 @@ void pop(stack_t **h, unsigned int l)
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
+	t = (*h)->next;
 	if (!t)
 	{
 		free(*h);
