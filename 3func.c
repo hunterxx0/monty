@@ -17,11 +17,14 @@ void fn_div(stack_t **h, unsigned int l)
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
-	if ((tmp)->n != 0)
+	if ((*h)->n != 0)
 	{
-		res = (((tmp)->next)->n) / ((tmp)->n);
-		*h = tmp->next;
-		tmp->next->n = res;
+		res = ((tmp->next)->n) / (tmp->n);
+		tmp = tmp->next;
+		tmp->n = res;
+		free(*h);
+		tmp->prev = NULL;
+		*h = tmp;
 	}
 	else
 	{
