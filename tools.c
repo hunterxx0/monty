@@ -44,6 +44,8 @@ void checkstr(stack_t **h, int l)
 {
 	int i = 0;
 
+	if (i == 0 && cmd[1][i] == '-')
+		i++;
 	while (cmd[1][i])
 	{
 		if (!isdigit(cmd[1][i]))
