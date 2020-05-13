@@ -5,21 +5,21 @@
 *
 *
 */
-void div(stack_t **h, unsigned int l)
+void fn_div(stack_t **h, unsigned int l)
 {
 	stack_t *tmp = *h;
 	int res = 0;
 
-	if (listsl(*tmp, 1) < 2)
+	if (listsl(tmp, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't div, stack too short\n\n", l);
 		fclose(fd);
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
-	if ((*tmp)->n != 0)
+	if ((tmp)->n != 0)
 	{
-		res = (((*tmp)->next)->n) / ((*tmp)->n);
+		res = (((tmp)->next)->n) / ((tmp)->n);
 		*h = tmp->next;
 		tmp->next->n = res;
 	}
@@ -40,9 +40,9 @@ void div(stack_t **h, unsigned int l)
 void fn_mul(stack_t **h, unsigned int l)
 {
 	stack_t *tmp = *h;
-	int val1 = 0; val2 = 0; res = 0;
+	int val1 = 0, val2 = 0, res = 0;
 
-	if (listsl(*tmp, 1) < 2)
+	if (listsl(tmp, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't mul, stack too short\n", l);
 		fclose(fd);
@@ -52,8 +52,8 @@ void fn_mul(stack_t **h, unsigned int l)
 	}
 	else
 	{
-	val1 = h->n;
-	val2 = h->next->n;
+	val1 = tmp->n;
+	val2 = tmp->next->n;
 	res = val2 * val1;
 	tmp = tmp->next;
 	tmp->n = res;
@@ -71,9 +71,9 @@ void fn_mul(stack_t **h, unsigned int l)
 void mod (stack_t **h, unsigned int l)
 {
 	stack_t *tmp = *h;
-	int val1 = 0; val2 = 0; res = 0;
+	int val1 = 0, val2 = 0, res = 0;
 
-	if (listsl(*tmp, 1) < 2)
+	if (listsl(tmp, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't mod, stack too short\n", l);
 		fclose(fd);
@@ -94,7 +94,7 @@ void mod (stack_t **h, unsigned int l)
 		res = val2 % val1;
 		tmp = tmp->next;
 		tmp->n = res;
-		h = tmp;
+		*h = tmp;
 		free(tmp);
 
 	}

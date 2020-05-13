@@ -26,7 +26,7 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 		{"add", add},
 		{"nop", nop},
 		{"sub", sub},
-		{"div", div},
+		{"div", fn_div},
 		{"mul", fn_mul},
 		{"mod", mod},
 		{NULL, NULL},
