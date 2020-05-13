@@ -19,7 +19,7 @@ void fn_div(stack_t **h, unsigned int l)
 	}
 	if ((*h)->n != 0)
 	{
-		res = ((tmp->next)->n) / (tmp->n);
+		res = (((tmp->next)->n) / (tmp->n));
 		tmp = tmp->next;
 		tmp->n = res;
 		free(*h);
@@ -58,9 +58,8 @@ void fn_mul(stack_t **h, unsigned int l)
 	val1 = tmp->n;
 	val2 = tmp->next->n;
 	res = val2 * val1;
-	tmp = tmp->next;
-	tmp->n = res;
-	*h = tmp;
+	tmp->next->n = res;
+	*h = tmp->next;
 	free(tmp);
 	}
 }
