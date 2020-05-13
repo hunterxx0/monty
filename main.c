@@ -14,7 +14,7 @@ int kn = 0;
  *
  * Return: f
  */
-void (*getf(char *s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
+void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 {
 	ins_t op[] = {
 		{"push", push},
@@ -31,11 +31,12 @@ void (*getf(char *s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 
 	while (op[i].opcode)
 	{
-		if (!strcmp(s, op[i].opcode))
+		if (strcmp(s[0], op[i].opcode) == 0)
 			return (op[i].f);
 		i++;
 	}
-	fprintf(stderr, "L%d: unknown instruction %s\n", l, s);
+
+	fprintf(stderr, "L%d: unknown instruction %s/%s\n", l, s[0], s[1]);
 	free_all(lines, cmd, h);
 	exit(EXIT_FAILURE);
 
@@ -70,7 +71,7 @@ void execins(stack_t **h)
 		}
 		if (cmd)
 		{
-			getf(cmd[0], *h, l)(h, l);
+			getf(cmd, *h, l)(h, l);
 			o = cmd;
 			cmd = NULL;
 			free_mat(o);
@@ -93,7 +94,7 @@ void execins(stack_t **h)
 int main(int argc, char **argv)
 {
 	int fd = 0, r = 0, w = 0;
-	char file[4096];
+	char file[9216];
 	stack_t *h = NULL;
 
 	if (argc == 1 || argc > 2)
@@ -109,7 +110,7 @@ int main(int argc, char **argv)
 		free_all(lines, cmd, h);
 		exit(EXIT_FAILURE);
 	}
-	r = read(fd, file, 4096);
+	r = read(fd, file, 9216);
 	file[r] = '\0';
 	w = words(file, '\n');
 	if (w != 0)
