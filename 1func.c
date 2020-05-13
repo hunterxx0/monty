@@ -94,7 +94,7 @@ void sub(stack_t **h, unsigned int l)
 
 	if (!(*h) || !(*h)->next)
 	{
-		fprintf(stderr, "L%u: , can't sub, stack too short\n", l);
+		fprintf(stderr, "L%u: can't sub, stack too short\n", l);
 		fclose(fd);
 		free_all(t, cmd, *h);
 		exit(EXIT_FAILURE);
