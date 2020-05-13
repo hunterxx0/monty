@@ -14,7 +14,7 @@ void pop(stack_t **h, unsigned int l)
 	if (*h == NULL)
 	{
 		fprintf(stderr, "L%u: can't pop an empty stack\n", l);
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	if (!t)
@@ -66,13 +66,13 @@ void push(stack_t **h, unsigned int l)
 	if (z == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	if (!cmd[1])
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", l);
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -80,7 +80,7 @@ void push(stack_t **h, unsigned int l)
 	if (!Num)
 	{
 		fprintf(stderr, "L%u: usage: push integer\n", l);
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	else
@@ -109,7 +109,7 @@ void addend(stack_t **h, unsigned int l)
 	if (z == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	z->n = 0;

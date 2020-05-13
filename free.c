@@ -50,9 +50,10 @@ void free_list(stack_t *h)
  * Return: Void.
  */
 
-void free_all(char **b, char **c, stack_t *h)
+void free_all(char *b, char **c, stack_t *h)
 {
-	free_mat(b);
+	if (b)
+		free(b);
 	free_mat(c);
 	free_list(h);
 }

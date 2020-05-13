@@ -49,7 +49,7 @@ void checkstr(stack_t **h, int l)
 		if (!isdigit(cmd[1][i]))
 		{
 			fprintf(stderr, "L%d: usage: push integer\n", l);
-			free_all(lines, cmd, *h);
+			free_all(file, cmd, *h);
 			exit(EXIT_FAILURE);
 		}
 	      i++;

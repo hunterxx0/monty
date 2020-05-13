@@ -12,7 +12,7 @@ void pint(stack_t **h, unsigned int l)
 	if (!h || !*h)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", l);
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	printf("%d\n", (*h)->n);
@@ -31,7 +31,7 @@ void swap(stack_t **h, unsigned int l)
 	if (listsl(*h, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't swap, stack too short\n", l);
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	val1 = (*h)->n;
@@ -54,7 +54,7 @@ void add(stack_t **h, unsigned int l)
 	if (listsl(*h, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't add, stack too short\n", l);
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	new_somme = tmp->n + (*h)->n;
@@ -90,7 +90,7 @@ void sub(stack_t **h, unsigned int l)
 	if (listsl(*h, 1) < 2)
 	{
 		fprintf(stderr, "L%u: , can't sub, stack too short\n", l);
-		free_all(lines, cmd, *h);
+		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	res = tmp->n - (*h)->n;

@@ -1,6 +1,6 @@
 #include "monty.h"
 
-char **lines = NULL;
+char *file = NULL;
 char **cmd = NULL;
 int *Num = NULL;
 int kn = 0;
@@ -36,8 +36,8 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 		i++;
 	}
 
-	fprintf(stderr, "L%d: unknown instruction %s/%s\n", l, s[0], s[1]);
-	free_all(lines, cmd, h);
+	fprintf(stderr, "L%d: unknown instruction %s\n", l, s[0]);
+	free_all(file, cmd, h);
 	exit(EXIT_FAILURE);
 
 
@@ -47,40 +47,37 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
  * execins - exec instruction
  *
  * @h: head
+ * @l: line number
  *
  * Return:
  */
 
-void execins(stack_t **h)
+void execins(stack_t **h, unsigned int l)
 {
-	int i = 0, w = 0, l = 1;
+	int w = 0;
 	char **o = NULL;
 
-	while (lines[i])
+	w = words(file, ' ');
+	if (w)
 	{
-		w = words(lines[i], ' ');
-		if (w)
+		cmd = split(file, ' ', w, *h);
+
+		if (!cmd)
 		{
-			cmd = split(lines[i], ' ', w, *h);
-			if (!cmd)
-			{
-				fprintf(stderr, "Error: malloc failed\n");
-				free_all(lines, cmd, *h);
-				exit(EXIT_FAILURE);
-			}
+			fprintf(stderr, "Error: malloc failed\n");
+			free_all(file, cmd, *h);
+			exit(EXIT_FAILURE);
 		}
-		if (cmd)
+		else
 		{
 			getf(cmd, *h, l)(h, l);
 			o = cmd;
 			cmd = NULL;
 			free_mat(o);
 		}
-		else
-			break;
-		i++;
-		l++;
 	}
+	else
+		return;
 }
 /**
  * main - monty main function
@@ -93,32 +90,37 @@ void execins(stack_t **h)
 
 int main(int argc, char **argv)
 {
-	int fd = 0, r = 0, w = 0;
-	char file[9216];
+	int r = 0;
+	unsigned int l = 1;
+	size_t buf = 0;
 	stack_t *h = NULL;
+	FILE *fd;
 
 	if (argc == 1 || argc > 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
-		free_all(lines, cmd, h);
+		free_all(file, cmd, h);
 		exit(EXIT_FAILURE);
 	}
-	fd = open(argv[1], O_RDONLY);
-	if (fd == -1)
+	fd = fopen(argv[1], "r");
+	if (!fd)
 	{
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
-		free_all(lines, cmd, h);
+		free_all(NULL, cmd, h);
 		exit(EXIT_FAILURE);
 	}
-	r = read(fd, file, 9216);
-	file[r] = '\0';
-	w = words(file, '\n');
-	if (w != 0)
+	do
 	{
-		lines = split(file, '\n', w, h);
-		execins(&h);
+		r = getline(&file, &buf, fd);
+		if (r != -1)
+		{
+			file[r - 1] = '\0';
+			execins(&h, l);
+		}
+		l++;
 	}
-	close(fd);
-	free_all(lines, cmd, h);
+	while (r != -1);
+	fclose(fd);
+	free_all(file, cmd, h);
 	return (0);
 }

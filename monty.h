@@ -43,7 +43,7 @@ typedef struct instruction_s
 
 extern int kn;
 extern int *Num;
-extern char **lines;
+extern char *file;
 extern char **cmd;
 
 
@@ -52,7 +52,7 @@ void checkstr(stack_t **, int);
 char **split(char *, char, int, stack_t *);
 void free_mat(char **);
 void free_list(stack_t *);
-void free_all(char **, char **, stack_t *);
+void free_all(char *, char **, stack_t *);
 int listsl(stack_t *, int);
 void push(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);

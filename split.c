@@ -18,7 +18,7 @@ void allocation(char **p, int i, int width, stack_t *h)
 			free(p[i]);
 		free(p);
 		fprintf(stderr, "Error: malloc failed\n");
-		free_all(lines, cmd, h);
+		free_all(file, cmd, h);
 		exit(EXIT_FAILURE);
 	}
 
@@ -46,7 +46,7 @@ char **split(char *str, char del, int heigth, stack_t *h)
 	if (p == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
-		free_all(lines, cmd, h);
+		free_all(file, cmd, h);
 		exit(EXIT_FAILURE);
 	}
 	for (i = 0; i < heigth; i++)
