@@ -17,6 +17,7 @@ void (*get_func(char *s))(stack_t **h, unsigned int n);
 		{"swap", swap},
 		{"add", add},
 		{"nop", not},
+		{"sub", sub},
 		{NULL, NULL},
 	};
 	int i = 0;
@@ -79,47 +80,7 @@ int execins(char **lines, stack_s **h)
 	while (lines[i])
 	{
 		w = words(lines[i], ' ');
-		if (w)
-		{
-			cmd = split(lines[i], ' ', w);
-			if (!cmd)
-			{
-			fprintf(stderr,"Error: malloc failed\n");
-				return (0);
-			}
-			c = checkins(cmd[0])
-			if (!c)
-				{
-		fprintf(stderr,"L%d: unknown instruction %s\n", l, cmd[0]);
-					return (0);
-				}
-			else if (c == 99)
-				if (cmd[1])
-				{
-					if (c = strlen(cmd[1]) > 0)
-						{
-		if (!checkstr(cmd[1], c))
-                {
-		fprintf(stderr,"L%d: unknown instruction %s\n", l, cmd[0]);
-                        return (0);
-                }
-		else
-			n = atoi(cmd[1]);
-						}
-
-				}
-				else
-				{
-		fprintf(stderr,"L%d: usage: push integer\n", l);
-					return (0);
-				}
-			get_func(cmd[0])(h, n);
-
-
-
-
-		}
-		else
+		if (!chech_push (w))
 			return (1);
 		i++;
 		l++;

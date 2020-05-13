@@ -142,3 +142,52 @@ int printl(const stack_t *h)
 	}
 	return (x);
 }
+/**
+ * printl? (- print doubly list)?
+ *
+ * @h: input head
+ * Return: n
+ */
+void pint(const stack_t *h)
+{
+	if (h)
+	printf("%d\n", (*h)->n);
+}
+void *swap(stack_t **h)
+{
+	int val1, val2;
+
+	val1 = (*h)->n;
+	val2 = *(h->next)->n;
+	pop(h,val1);
+	pop(h,val2);
+	addend(*h,val1);
+	addend(*h,val2);
+}
+void add(stack_t **h)
+{
+	stack_t *tmp = *h;
+	int new_somme = 0;
+	new_somme = *(tmp)->n + *(tmp->next)->n;
+	pop(*h,tmp->n);
+	pop(*h,tmp->next->n);
+	push(*h,new_somme);
+}
+
+void _nop(stack_t **h)
+{
+	(void)h;
+	return;
+}
+void sub(stack_t **h)
+{
+int longueur = 0;
+longueur = listsl(*h); 
+if ( longueur >= 2)
+{
+	int res = (*h->next)->n - (*h)->n;
+	_pop(h);
+	_pop(h);
+	*h->n = res;
+}
+}
