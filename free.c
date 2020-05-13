@@ -11,12 +11,15 @@
 void free_mat(char **commands)
 {
 	int i = 0;
+	char **o = NULL;
 
 	if (!commands || !*commands)
 		return;
-	while (commands[i])
-		free(commands[i++]);
-	free(commands);
+	o = commands;
+	commands = NULL;
+	while (o[i])
+		free(o[i++]);
+	free(o);
 
 }
 

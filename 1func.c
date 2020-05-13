@@ -31,6 +31,7 @@ void swap(stack_t **h, unsigned int l)
 	if (listsl(*h, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't swap, stack too short\n", l);
+		fclose(fd);
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
@@ -54,6 +55,7 @@ void add(stack_t **h, unsigned int l)
 	if (!*h || listsl(*h, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't add, stack too short\n", l);
+		fclose(fd);
 		free_all(t, cmd, *h);
 		exit(EXIT_FAILURE);
 	}

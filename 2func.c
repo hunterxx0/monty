@@ -66,12 +66,15 @@ void push(stack_t **h, unsigned int l)
 	if (z == NULL)
 	{
 		fprintf(stderr, "Error: malloc failed\n");
+		fclose(fd);
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	if (!cmd[1])
 	{
 		fprintf(stderr, "L%d: usage: push integer\n", l);
+		free(z);
+		fclose(fd);
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
@@ -79,7 +82,9 @@ void push(stack_t **h, unsigned int l)
 		checkstr(h, l);
 	if (!Num)
 	{
+		free(z);
 		fprintf(stderr, "L%u: usage: push integer\n", l);
+		fclose(fd);
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}

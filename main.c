@@ -4,6 +4,7 @@ char *file = NULL;
 char **cmd = NULL;
 int *Num = NULL;
 int kn = 0;
+FILE *fd;
 
 /**
  * getf - checks if the function exists
@@ -114,9 +115,10 @@ int main(int argc, char **argv)
 {
 	int r = 0;
 	unsigned int l = 1;
+	char *o = NULL;
 	size_t buf = 0;
 	stack_t *h = NULL;
-	FILE *fd;
+
 
 	if (argc == 1 || argc > 2)
 	{
@@ -139,6 +141,9 @@ int main(int argc, char **argv)
 			if (checkcom() == 1)
 				continue;
 			execins(&h, l);
+			o = file;
+			file = NULL;
+			free(o);
 		}
 		l++;
 	} while (r != -1);

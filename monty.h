@@ -45,7 +45,7 @@ extern int kn;
 extern int *Num;
 extern char *file;
 extern char **cmd;
-
+extern FILE *fd;
 
 int words(char *, char);
 void checkstr(stack_t **, int);
