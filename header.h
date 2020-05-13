@@ -8,6 +8,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <errno.h>
+#include <ctype.h>
 
 /**
  * struct stack_s - doubly linked list representation of a stack (or queue)
@@ -36,22 +37,35 @@ typedef struct stack_s
 typedef struct instruction_s
 {
         char *opcode;
-        void (*f)(stack_t **stack, int line);
+        void (*f)(stack_t **, unsigned int);
 } ins_t;
 
+
+
+extern int *Num;
+extern char **lines;
+extern char **cmd;
+
+
+
+
 int words(char *, char);
-char **split(char *, char, int);
+void checkstr(stack_t **, int);
+char **split(char *, char, int, stack_t *);
 void free_mat(char **);
 void free_list(stack_t *);
-void free_all(char **, stack_t *);
-void listsl(stack_t *, int);
-void printl(stack_t *, int);
-void printh(stack_t *, int)
-void push(stack_t *, int);
-void add(stack_t *, int)
+void free_all(char **, char **, stack_t *);
+int listsl(stack_t *, int);
+void push(stack_t **, unsigned int);
+void pall(stack_t **, unsigned int);
+void pint(stack_t **, unsigned int);
+void pop(stack_t **, unsigned int);
+void add(stack_t **, unsigned int);
+void sub(stack_t **, unsigned int);
+void swap(stack_t **, unsigned int);
+void nop(stack_t **, unsigned int);
 int listsum(stack_t *, int);
-void pop(stack_t **, int);
 
 
 
-#endif /* LISTS_H */
+#endif /* HEADER_H */

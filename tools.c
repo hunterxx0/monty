@@ -1,39 +1,6 @@
 #include "header.h"
 
-/**
- * test_built_in - free a multidimensional array.
- *
- * @buffer : input line.
- * @env : envirement.
- * @head : first node.
- * Return: Number.
 
-
-int testins(char *buffer, char **env, his **head)
-{
-	int test = 0;
-	char *tmp = NULL;
-
-	tmp = strip_built_in(buffer);
-
-	if (tmp)
-	{
-		if (_strcmp("exit", tmp) == 0)
-			test = 1;
-
-		if (_strcmp("history", tmp) == 0)
-		{
-			if (head)
-			_print_history(head, env);
-			test = 2;
-		}
-	}
-	if (tmp)
-		free(tmp);
-	return (test);
-}
-
-*/
 /**
 * words - return the number of words in a string.
 *
@@ -66,44 +33,59 @@ int words(char *c, char x)
 	return (w);
 }
 
-
 /**
- * strip - remove spaces at the begining and the end of a string.
- * @str : string.
- * Return: void.
-
-
-char *strip(char *str)
+ * checkstr - checks if the function exists
+ *
+ * @cmd: command
+ * @c: cmd len
+ *
+ * Return: 0 or 1
+ */
+void checkstr(stack_t **h, int l)
 {
-	int i = 0, st = 0, j = 0;
-	char *start = NULL, *p = NULL;
+	int i = 0, n = 0;
 
-	for (; str[i] && str[i] == ' '; i++)
-		;
-
-	if (str[i])
+	while (cmd[1][i])
 	{
-		st = i;
-		start = &str[i];
-
-		for (; str[i]; i++)
-			;
-
-		for (i -= 2 ; str[i] == ' '; i--)
-			;
-
-		p = malloc(i - st + 3);
-		if (!p)
-			return (NULL);
-
-		for (j = 0; j < i - st + 1; j++)
-			p[j] = start[j];
-
-		p[j] = '\n';
-		p[j + 1] = '\0';
+		if (!isdigit(cmd[1][i]))
+		{
+			fprintf(stderr,"L%d: usage: push integer\n", l);
+			free_all(lines, cmd, *h);
+			exit(EXIT_FAILURE);
+		}
+	      i++;
 	}
 
-	return (p);
+	n = atoi(cmd[1]);
+	Num = &n;
+
 }
 
+/**
+ * give_me_error - print the error expected
+ *
+ * @cmd: command
+ *
+ * Return: 0 or 1
+
+
+void (*give_me_error(char *s))(stack_t **h, unsigned int n)
+{
+	ins_t op[] = {
+		{"push", error_push},
+		{"pint", error_printh},
+		{"pop", error_delnode},
+		{"swap", error_swap},
+		{"add", error_add},
+		{"sub", error_sub},
+		{NULL, NULL},
+	};
+	int i = 0;
+	while (op[i].opcode)
+	{
+		if (*s == *(op[i].opcode))
+			return(ops[i].f(n));
+		i++;
+	}
+}
 */

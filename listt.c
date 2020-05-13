@@ -1,54 +1,30 @@
 #include "header.h"
 
 /**
- * delnode? (- del i'th node)?
+ * pop? (- del first node)?
  *
  * @h: input head
- * @i: index
+ * @l: line
  * Return: 1 succes or -1 fail
  */
-void pop(stack_t **h, int i)
+void pop(stack_t **h, unsigned int l)
 {
-	size_t x, j = 0;
-	stack_t *z, *k, *t = *h;
+	stack_t *t = (*h)->next;
 
 	if (*h == NULL)
-		return (-1);
-	while (t)
 	{
-		j++;
-		t = t->next;
+		fprintf(stderr,"L%u: can't pop an empty stack\n", l);
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
 	}
-	if (i >= j)
-		return (-1);
-	x = 0;
-	t = *h;
-	if (i == 0)
+	if (!t)
 	{
-		if (t->next)
-		{
-			t = t->next;
-			t->prev = NULL;
-		}
 		free(*h);
-		*h = t;
-		return (1);
+		return;
 	}
-	while (x < i - 1)
-	{
-		t = t->next;
-		x++;
-	}
-	z = t;
-	t = t->next;
-	z->next = t->next;
-	free(t);
-	if (z->next)
-	{
-		k = z->next;
-		k->prev = z;
-	}
-	return (1);
+	t->prev = NULL;
+	free(*h);
+	*h = t;
 }
 
 /**
@@ -56,9 +32,9 @@ void pop(stack_t **h, int i)
  *
  * @h: input head
  * @z: 1 for len 0 for sum
- * Return: n
+ * Return: n or x
  */
-int listsl(const stack_t *h, int z)
+int listsl(stack_t *h, int z)
 {
 	int n = 0, x = 0;
 
@@ -72,45 +48,71 @@ int listsl(const stack_t *h, int z)
 		return (x);
 	if (z == 0)
 		return (n);
+	return (0);
 }
 
 /**
- * add? (- add node at the beginning)?
+ * push? (- add node at the beginning)?
  *
  * @h: input head
  * @n: input node
  * Return: n
  */
-stack_t *push(stack_t **h, int n)
+void push(stack_t **h, unsigned int l)
 {
 	stack_t *z = (stack_t *)malloc(sizeof(stack_t));
+	int x = 0;
 
 	if (z == NULL)
-		return (NULL);
+	{
+		fprintf(stderr,"Error: malloc failed\n");
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	if (!cmd[1])
+	{
+		fprintf(stderr,"L%d: usage: push integer\n", l);
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	else
+		checkstr(h, l);
+	if (!Num)
+	{
+		fprintf(stderr,"L%u: usage: push integer\n", l);
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	else
+		x = *Num;
 	if (*h)
 		(*h)->prev = z;
-	z->n = n;
+	z->n = x;
 	z->next = *h;
 	z->prev = NULL;
 	*h = z;
-	return (z);
 }
 
 /**
  * addend? (- add node at the end)?
  *
  * @h: input head
- * @n: input node
+ * @l: line
  * Return: z
  */
-stack_t *addend(stack_t **h, const int n)
+void addend(stack_t **h, unsigned int l)
 {
 	stack_t *z = (stack_t *)malloc(sizeof(stack_t));
 	stack_t *t = *h;
 
+	(void)l;
 	if (z == NULL)
-		return (NULL);
-	z->n = n;
+	{
+		fprintf(stderr,"Error: malloc failed\n");
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	z->n = 0;
 	z->next = NULL;
 	if (*h == NULL)
 		*h = z;
@@ -121,73 +123,95 @@ stack_t *addend(stack_t **h, const int n)
 	t->next = z;
 	z->prev = t;
 	}
-	return (z);
 }
 
 /**
- * printl? (- print doubly list)?
+ * pall? (- print all)?
  *
  * @h: input head
  * Return: n
  */
-int printl(const stack_t *h)
+void pall(stack_t **h, unsigned int l)
 {
-	int x = 0;
+	stack_t *t = *h;
 
-	while (h)
+	(void)l;
+	while (t)
 	{
-		printf("%d\n", h->n);
-		x++;
-		h = h->next;
+		printf("%d\n", t->n);
+		t = t->next;
 	}
-	return (x);
 }
+
 /**
- * printl? (- print doubly list)?
+ * pint? (- print doubly list)?
  *
  * @h: input head
  * Return: n
  */
-void pint(const stack_t *h)
+void pint(stack_t **h, unsigned int l)
 {
-	if (h)
+	if (!h)
+	{
+		fprintf(stderr,"L%u: can't pint, stack empty\n", l);
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
 	printf("%d\n", (*h)->n);
 }
-void *swap(stack_t **h)
+void swap(stack_t **h, unsigned int l)
 {
 	int val1, val2;
 
+	if (listsl(*h, 1) < 2)
+	{
+		fprintf(stderr,"L%u: can't swap, stack too short\n", l);
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
 	val1 = (*h)->n;
-	val2 = *(h->next)->n;
-	pop(h,val1);
-	pop(h,val2);
-	addend(*h,val1);
-	addend(*h,val2);
+	val2 = (*h)->next->n;
+	(*h)->n = val2;
+	(*h)->next->n = val1;
 }
-void add(stack_t **h)
+void add(stack_t **h, unsigned int l)
 {
-	stack_t *tmp = *h;
+	stack_t *tmp = (*h)->next;
 	int new_somme = 0;
-	new_somme = *(tmp)->n + *(tmp->next)->n;
-	pop(*h,tmp->n);
-	pop(*h,tmp->next->n);
-	push(*h,new_somme);
+
+	if (listsl(*h, 1) < 2)
+	{
+		fprintf(stderr,"L%u: can't add, stack too short\n", l);
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	new_somme = tmp->n + (*h)->n;
+	free (*h);
+	tmp->prev = NULL;
+	tmp->n = new_somme;
+	*h = tmp;
 }
 
-void _nop(stack_t **h)
+void nop(stack_t **h, unsigned int l)
 {
 	(void)h;
+	(void)l;
 	return;
 }
-void sub(stack_t **h)
+void sub(stack_t **h, unsigned int l)
 {
-int longueur = 0;
-longueur = listsl(*h); 
-if ( longueur >= 2)
-{
-	int res = (*h->next)->n - (*h)->n;
-	_pop(h);
-	_pop(h);
-	*h->n = res;
-}
+	int res = 0;
+	stack_t *tmp = (*h)->next;
+
+	if (listsl(*h, 1) < 2)
+	{
+		fprintf(stderr,"L%u: , can't sub, stack too short\n", l);
+		free_all(lines, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	res = tmp->n - (*h)->n;
+	free (*h);
+	tmp->prev = NULL;
+	tmp->n = res;
+	*h = tmp;
 }

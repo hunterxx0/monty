@@ -12,12 +12,12 @@ void free_mat(char **commands)
 {
 	int i = 0;
 
-	if (commands)
-	{
+	if (!commands || !*commands)
+		return;
 	while (commands[i])
 		free(commands[i++]);
 	free(commands);
-	}
+
 }
 
 
@@ -48,8 +48,9 @@ void free_list(stack_t *h)
  * Return: Void.
  */
 
-void free_all(char **b, stack_t *h)
+void free_all(char **b, char **c, stack_t *h)
 {
 	free_mat(b);
+	free_mat(c);
 	free_list(h);
 }

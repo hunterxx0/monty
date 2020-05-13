@@ -8,7 +8,7 @@
  * Return: 1 or 0.
  */
 
-int allocation(char **p, int i, int width)
+void allocation(char **p, int i, int width, stack_t *h)
 {
 	p[i] = malloc(sizeof(char) * (width + 1));
 	if (p[i] == NULL)
@@ -16,9 +16,11 @@ int allocation(char **p, int i, int width)
 		for (i -= 1; i >= 0; i--)
 			free(p[i]);
 		free(p);
-		return (1);
+		fprintf(stderr,"Error: malloc failed\n");
+		free_all(lines, cmd, h);
+		exit(EXIT_FAILURE);
 	}
-	return (0);
+
 }
 
 
@@ -30,7 +32,7 @@ int allocation(char **p, int i, int width)
  * Return: pointer.
  */
 
-char **split(char *str, char del, int heigth)
+char **split(char *str, char del, int heigth, stack_t *h)
 {
 	int i, j = 0, k = 0, l, width;
 	char **p = NULL;
@@ -40,8 +42,11 @@ char **split(char *str, char del, int heigth)
 
 	p = malloc(sizeof(char *) * (heigth + 1));
 	if (p == NULL)
-		return (NULL);
-
+	{
+		fprintf(stderr,"Error: malloc failed\n");
+		free_all(lines, cmd, h);
+		exit(EXIT_FAILURE);
+	}
 	for (i = 0; i < heigth; i++)
 	{
 
@@ -56,14 +61,10 @@ char **split(char *str, char del, int heigth)
 			width++;
 			k++;
 		}
-
-		if (allocation(p, i, width) == 1)
-			return (NULL);
-
+		allocation(p, i, width, h);
 		for (l = 0; l < width; l++, j++)
 			p[i][l] = str[j];
 		p[i][l] = '\0';
-
 	}
 	p[i] = NULL;
 	return (p);

@@ -1,5 +1,9 @@
 #include "header.h"
 
+char **lines = NULL;
+char **cmd = NULL;
+int *Num = NULL;
+
 /**
  * get_func - checks if the function exists
  *
@@ -7,63 +11,33 @@
  *
  * Return: 0 or 1
  */
-void (*get_func(char *s))(stack_t **h, unsigned int n);
+void (*getf(char *s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 {
 	ins_t op[] = {
 		{"push", push},
-		{"pall", printl},
-		{"pint", printh},
-		{"pop", delnode},
+		{"pall", pall},
+		{"pint", pint},
+		{"pop", pop},
 		{"swap", swap},
 		{"add", add},
-		{"nop", not},
+		{"nop", nop},
 		{"sub", sub},
 		{NULL, NULL},
 	};
 	int i = 0;
-
 	while (op[i].opcode)
 	{
-		if (*s == *(op[i].opcode))
-			return(ops[i].f);
+		if (!strcmp(s, op[i].opcode))
+			return(op[i].f);
 		i++;
 	}
+	fprintf(stderr,"L%d: unknown instruction %s\n", l, s);
+	free_all(lines, cmd, h);
+	exit(EXIT_FAILURE);
+
 
 }
 
-/**
- * checkins - checks if the function exists
- *
- * @cmd: command
- *
- * Return: 0 or 1
- */
-int checkins(char *cmd)
-{
-char *codes[] = {
-	"push",
-	"pall",
-	"pint",
-	"pop",
-	"swap",
-	"add",
-	"nop",
-	NULL,
-};
-	int i = 0;
-
-	while (codes[i])
-	{
-		if (!strcmp(cmd, codes[i]) && !strcmp(codes[i], "push"))
-			return (99);
-		if (!strcmp(cmd, codes[i]))
-			return (1);
-		else if (!strcmp(cmd, codes[i]) && !codes[i + 1])
-			return (0);
-		i++;
-	}
-	return (0);
-}
 /**
  * execins - exec instruction
  *
@@ -72,22 +46,33 @@ char *codes[] = {
  * Return: 0 or 1
  */
 
-int execins(char **lines, stack_s **h)
+void execins(stack_t **h)
 {
-	int i = 0, w = 0, l = 1, n = 0, c = 0;
-	char **cmd = NULL;
+	int i = 0, w = 0, l = 1;
 
 	while (lines[i])
 	{
 		w = words(lines[i], ' ');
-		if (!chech_push (w))
-			return (1);
+		if (w)
+		{
+			cmd = split(lines[i], ' ', w, *h);
+			if (!cmd)
+			{
+				fprintf(stderr,"Error: malloc failed\n");
+				free_all(lines, cmd, *h);
+				exit(EXIT_FAILURE);
+			}
+                }
+		if (!cmd)
+			break;
+		else
+		{
+			getf(cmd[0], *h, l)(h, l);
+			free_mat(cmd);
+		}
 		i++;
 		l++;
 	}
-
-
-	return (0);
 }
 /**
  * main - monty main function
@@ -101,18 +86,20 @@ int execins(char **lines, stack_s **h)
 int main(int argc, char **argv)
 {
         int fd = 0, r = 0, w = 0;
-	char **lines = NULL, file[4096];
-	stack_t *head = NULL;
+	char file[4096];
+	stack_t *h = NULL;
 
 	if (argc == 1 || argc > 2)
 	{
 		fprintf(stderr,"USAGE: monty file\n");
+		free_all(lines, cmd, h);
 		exit(EXIT_FAILURE);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
 		fprintf(stderr,"Error: Can't open file %s\n", argv[1]);
+		free_all(lines, cmd, h);
 		exit(EXIT_FAILURE);
 	}
 	r = read(fd, file, 4096);
@@ -120,17 +107,10 @@ int main(int argc, char **argv)
 	w = words(file, '\n');
 	if (w != 0)
 	{
-		lines = split(file, '\n', w);
-		if (!lines)
-		{
-			fprintf(stderr,"Error: malloc failed\n");
-			exit(EXIT_FAILURE);
-		}
-		if (!execins(lines, &head))
-			exit(EXIT_FAILURE);
+		lines = split(file, '\n', w, h);
+		execins(&h);
 	}
-
 	close(fd);
-	free_all(lines, head);
+	free_all(lines, cmd, h);
 	return (0);
 }
