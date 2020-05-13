@@ -5,7 +5,8 @@
  * @p : pointer to ponter of string.
  * @i : current row of "p".
  * @width : width of the current row.
- * Return: 1 or 0.
+ * @h: first node.
+ * Return:
  */
 
 void allocation(char **p, int i, int width, stack_t *h)
@@ -16,7 +17,7 @@ void allocation(char **p, int i, int width, stack_t *h)
 		for (i -= 1; i >= 0; i--)
 			free(p[i]);
 		free(p);
-		fprintf(stderr,"Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		free_all(lines, cmd, h);
 		exit(EXIT_FAILURE);
 	}
@@ -25,11 +26,12 @@ void allocation(char **p, int i, int width, stack_t *h)
 
 
 /**
- * **split - function that splits a string into words.
+ * split - function that splits a string into words.
  * @str : string.
  * @del : delimiter.
  * @heigth : number of words.
- * Return: pointer.
+ * @h: first node.
+ * Return: P
  */
 
 char **split(char *str, char del, int heigth, stack_t *h)
@@ -43,7 +45,7 @@ char **split(char *str, char del, int heigth, stack_t *h)
 	p = malloc(sizeof(char *) * (heigth + 1));
 	if (p == NULL)
 	{
-		fprintf(stderr,"Error: malloc failed\n");
+		fprintf(stderr, "Error: malloc failed\n");
 		free_all(lines, cmd, h);
 		exit(EXIT_FAILURE);
 	}

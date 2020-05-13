@@ -21,9 +21,9 @@
  */
 typedef struct stack_s
 {
-        int n;
-        struct stack_s *prev;
-        struct stack_s *next;
+	int n;
+	struct stack_s *prev;
+	struct stack_s *next;
 } stack_t;
 
 /**
@@ -36,17 +36,15 @@ typedef struct stack_s
  */
 typedef struct instruction_s
 {
-        char *opcode;
-        void (*f)(stack_t **, unsigned int);
+	char *opcode;
+	void (*f)(stack_t **, unsigned int);
 } ins_t;
 
 
-
+extern int kn;
 extern int *Num;
 extern char **lines;
 extern char **cmd;
-
-
 
 
 int words(char *, char);

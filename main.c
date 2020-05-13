@@ -3,13 +3,16 @@
 char **lines = NULL;
 char **cmd = NULL;
 int *Num = NULL;
+int kn = 0;
 
 /**
- * get_func - checks if the function exists
+ * getf - checks if the function exists
  *
- * @cmd: command
+ * @s: command.
+ * @h: head.
+ * @l: line number.
  *
- * Return: 0 or 1
+ * Return: f
  */
 void (*getf(char *s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 {
@@ -25,13 +28,14 @@ void (*getf(char *s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 		{NULL, NULL},
 	};
 	int i = 0;
+
 	while (op[i].opcode)
 	{
 		if (!strcmp(s, op[i].opcode))
-			return(op[i].f);
+			return (op[i].f);
 		i++;
 	}
-	fprintf(stderr,"L%d: unknown instruction %s\n", l, s);
+	fprintf(stderr, "L%d: unknown instruction %s\n", l, s);
 	free_all(lines, cmd, h);
 	exit(EXIT_FAILURE);
 
@@ -41,14 +45,15 @@ void (*getf(char *s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 /**
  * execins - exec instruction
  *
- * @lines: file lines
+ * @h: head
  *
- * Return: 0 or 1
+ * Return:
  */
 
 void execins(stack_t **h)
 {
 	int i = 0, w = 0, l = 1;
+	char **o = NULL;
 
 	while (lines[i])
 	{
@@ -58,18 +63,20 @@ void execins(stack_t **h)
 			cmd = split(lines[i], ' ', w, *h);
 			if (!cmd)
 			{
-				fprintf(stderr,"Error: malloc failed\n");
+				fprintf(stderr, "Error: malloc failed\n");
 				free_all(lines, cmd, *h);
 				exit(EXIT_FAILURE);
 			}
-                }
-		if (!cmd)
-			break;
-		else
+		}
+		if (cmd)
 		{
 			getf(cmd[0], *h, l)(h, l);
-			free_mat(cmd);
+			o = cmd;
+			cmd = NULL;
+			free_mat(o);
 		}
+		else
+			break;
 		i++;
 		l++;
 	}
@@ -85,20 +92,20 @@ void execins(stack_t **h)
 
 int main(int argc, char **argv)
 {
-        int fd = 0, r = 0, w = 0;
+	int fd = 0, r = 0, w = 0;
 	char file[4096];
 	stack_t *h = NULL;
 
 	if (argc == 1 || argc > 2)
 	{
-		fprintf(stderr,"USAGE: monty file\n");
+		fprintf(stderr, "USAGE: monty file\n");
 		free_all(lines, cmd, h);
 		exit(EXIT_FAILURE);
 	}
 	fd = open(argv[1], O_RDONLY);
 	if (fd == -1)
 	{
-		fprintf(stderr,"Error: Can't open file %s\n", argv[1]);
+		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		free_all(lines, cmd, h);
 		exit(EXIT_FAILURE);
 	}

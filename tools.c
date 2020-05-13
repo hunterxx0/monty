@@ -1,6 +1,5 @@
 #include "header.h"
 
-
 /**
 * words - return the number of words in a string.
 *
@@ -34,58 +33,29 @@ int words(char *c, char x)
 }
 
 /**
- * checkstr - checks if the function exists
+ * checkstr - if str is a number
  *
- * @cmd: command
- * @c: cmd len
+ * @h: command
+ * @l: cmd len
  *
- * Return: 0 or 1
+ * Return:
  */
 void checkstr(stack_t **h, int l)
 {
-	int i = 0, n = 0;
+	int i = 0;
 
 	while (cmd[1][i])
 	{
 		if (!isdigit(cmd[1][i]))
 		{
-			fprintf(stderr,"L%d: usage: push integer\n", l);
+			fprintf(stderr, "L%d: usage: push integer\n", l);
 			free_all(lines, cmd, *h);
 			exit(EXIT_FAILURE);
 		}
 	      i++;
 	}
 
-	n = atoi(cmd[1]);
-	Num = &n;
+	kn = atoi(cmd[1]);
+	Num = &kn;
 
 }
-
-/**
- * give_me_error - print the error expected
- *
- * @cmd: command
- *
- * Return: 0 or 1
-
-
-void (*give_me_error(char *s))(stack_t **h, unsigned int n)
-{
-	ins_t op[] = {
-		{"push", error_push},
-		{"pint", error_printh},
-		{"pop", error_delnode},
-		{"swap", error_swap},
-		{"add", error_add},
-		{"sub", error_sub},
-		{NULL, NULL},
-	};
-	int i = 0;
-	while (op[i].opcode)
-	{
-		if (*s == *(op[i].opcode))
-			return(ops[i].f(n));
-		i++;
-	}
-}
-*/

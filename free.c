@@ -23,7 +23,7 @@ void free_mat(char **commands)
 
 /**
  * free_list - Free a list.
- * @head : first element of the list.
+ * @h : first element of the list.
  * Return : Void.
  */
 
@@ -31,6 +31,8 @@ void free_list(stack_t *h)
 {
 	stack_t *l = NULL;
 
+	if (!h)
+		return;
 	while (h)
 	{
 		l = h;
@@ -42,9 +44,9 @@ void free_list(stack_t *h)
 
 /**
  * free_all - free evry malloc.
- * @buffer : input line.
- * @head : first element of the list.
- * @env : lists of the envirement variables.
+ * @b : input lines.
+ * @h : first element of the list.
+ * @c : lists of cmds.
  * Return: Void.
  */
 
