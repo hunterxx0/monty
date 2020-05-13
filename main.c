@@ -93,10 +93,10 @@ int checkcom(void)
 	while (file[i])
 	{
 		if (file[i] == ' ')
-		    i++;
+			i++;
 		else if (file[i] == '#')
 			return (1);
-		else
+		else if (file[i] != ' ' && file[i] != '#')
 			break;
 	}
 	return (0);

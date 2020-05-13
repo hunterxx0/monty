@@ -52,6 +52,7 @@ void add(stack_t **h, unsigned int l)
 	stack_t *tmp = NULL;
 	int new_somme = 0;
 	char *t = file;
+
 	if (!*h || listsl(*h, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't add, stack too short\n", l);
