@@ -22,6 +22,7 @@ void pop(stack_t **h, unsigned int l)
 	if (!t)
 	{
 		free(*h);
+		*h = t;
 		return;
 	}
 	t->prev = NULL;
@@ -141,9 +142,12 @@ void addend(stack_t **h, unsigned int l)
  */
 void pall(stack_t **h, unsigned int l)
 {
-	stack_t *t = *h;
+	stack_t *t = NULL;
 
 	(void)l;
+	if (!*h)
+		return;
+	t = *h;
 	while (t)
 	{
 		printf("%d\n", t->n);
