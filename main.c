@@ -109,8 +109,7 @@ int main(int argc, char **argv)
 		free_all(NULL, cmd, h);
 		exit(EXIT_FAILURE);
 	}
-	do
-	{
+	do {
 		r = getline(&file, &buf, fd);
 		if (r != -1)
 		{
@@ -118,8 +117,7 @@ int main(int argc, char **argv)
 			execins(&h, l);
 		}
 		l++;
-	}
-	while (r != -1);
+	} while (r != -1);
 	fclose(fd);
 	free_all(file, cmd, h);
 	return (0);
