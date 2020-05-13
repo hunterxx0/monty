@@ -90,13 +90,13 @@ void sub(stack_t **h, unsigned int l)
 {
 	int res = 0;
 	stack_t *tmp = NULL;
+	char *t = file;
 
-
-	if (!*h || listsl(*h, 1) < 2)
+	if (!(*h) || !(*h)->next)
 	{
 		fprintf(stderr, "L%u: , can't sub, stack too short\n", l);
 		fclose(fd);
-		free_all(file, cmd, *h);
+		free_all(t, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	tmp = (*h)->next;
