@@ -63,7 +63,8 @@ void sub(stack_t **, unsigned int);
 void swap(stack_t **, unsigned int);
 void nop(stack_t **, unsigned int);
 int listsum(stack_t *, int);
-
-
+void div(stack_t **, unsigned int);
+void fn_mul(stack_t **, unsigned int);
+void mod(stack_t **, unsigned int
 
 #endif /* HEADER_H */
