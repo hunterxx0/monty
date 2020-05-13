@@ -9,7 +9,7 @@
  */
 void pint(stack_t **h, unsigned int l)
 {
-	if (!h)
+	if (!h || !*h)
 	{
 		fprintf(stderr, "L%u: can't pint, stack empty\n", l);
 		free_all(lines, cmd, *h);
