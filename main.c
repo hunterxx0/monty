@@ -80,6 +80,28 @@ void execins(stack_t **h, unsigned int l)
 		return;
 }
 /**
+ * checkcom - comm
+ *
+ * Return: 0 or 1
+ */
+
+int checkcom(void)
+{
+	int i = 0;
+
+	while (file[i])
+	{
+		if (file[i] == ' ')
+		    i++;
+		else if (file[i] == '#')
+			return (1);
+		else
+			break;
+	}
+	return (0);
+}
+
+/**
  * main - monty main function
  *
  * @argc: arguments number
@@ -114,6 +136,8 @@ int main(int argc, char **argv)
 		if (r != -1)
 		{
 			file[r - 1] = '\0';
+			if (checkcom() == 1)
+				continue;
 			execins(&h, l);
 		}
 		l++;

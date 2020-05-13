@@ -48,15 +48,16 @@ void swap(stack_t **h, unsigned int l)
  */
 void add(stack_t **h, unsigned int l)
 {
-	stack_t *tmp = (*h)->next;
+	stack_t *tmp = NULL;
 	int new_somme = 0;
-
-	if (listsl(*h, 1) < 2)
+	char *t = file;
+	if (!*h || listsl(*h, 1) < 2)
 	{
 		fprintf(stderr, "L%u: can't add, stack too short\n", l);
-		free_all(file, cmd, *h);
+		free_all(t, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
+	tmp = (*h)->next;
 	new_somme = tmp->n + (*h)->n;
 	free(*h);
 	tmp->prev = NULL;
