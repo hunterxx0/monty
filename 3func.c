@@ -125,7 +125,7 @@ void pchar(stack_t **h, unsigned int l)
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
-	if ((*h)->n < 0 || (*h)->n > 128)
+	if ((*h)->n < 0 || (*h)->n > 127)
 	{
 		fprintf(stderr, "L%u: can't pchar, value out of range\n", l);
 		fclose(fd);
