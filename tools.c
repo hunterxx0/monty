@@ -38,7 +38,7 @@ int words(char *c, char x)
  * @h: command
  * @l: cmd len
  *
- * Return:
+ * Return:nothing (mean true)
  */
 void checkstr(stack_t **h, int l)
 {
