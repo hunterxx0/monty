@@ -45,7 +45,7 @@ void swap(stack_t **h, unsigned int l)
  *
  * @h: input head
  * @l: line number
- * Return: n
+ * Return:nothing(meantrue)
  */
 void add(stack_t **h, unsigned int l)
 {
