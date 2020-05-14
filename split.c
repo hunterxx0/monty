@@ -31,7 +31,7 @@ void allocation(char **p, int i, int width, stack_t *h)
  * @del : delimiter.
  * @heigth : number of words.
  * @h: first node.
- * Return: P
+ * Return: char
  */
 
 char **split(char *str, char del, int heigth, stack_t *h)
