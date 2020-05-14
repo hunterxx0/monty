@@ -14,7 +14,7 @@ FILE *fd;
  * @h: head.
  * @l: line number.
  *
- * Return: f
+ * Return: nothing
  */
 void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 {
