@@ -29,7 +29,7 @@ void rotl(stack_t **h, unsigned int l)
  *
  * @h: input head
  * @x: line number
- * Return:
+ * Return: nothing(mean true)
  */
 void rotr(stack_t **h, unsigned int x)
 {
