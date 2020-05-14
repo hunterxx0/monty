@@ -84,7 +84,7 @@ void nop(stack_t **h, unsigned int l)
  *
  * @h: input head
  * @l: line number
- * Return: n
+ * Return:nothing(meantrue)
  */
 void sub(stack_t **h, unsigned int l)
 {
