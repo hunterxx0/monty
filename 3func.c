@@ -81,28 +81,29 @@ void mod (stack_t **h, unsigned int l)
 	stack_t *tmp = *h;
 	int res = 0;
 
-	if (listsl(tmp, 1) < 2)
-	{
-		fprintf(stderr, "L%u: can't mod, stack too short\n", l);
-		fclose(fd);
-		free_all(file, cmd, *h);
-		exit(EXIT_FAILURE);
-	}
-	if(tmp->n == 0)
-	{
-		fprintf(stderr, "L%u: division by zero\n", l);
-		fclose(fd);
-		free_all(file, cmd, *h);
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		*h = (*h)->next;
-		res = tmp->n % (*h)->n;
-		(*h)->n = res;
-		(*h)->prev = NULL;
-		free(tmp);
 
-	}
+        if (!h || !(*h) || !(*h)->next)
+        {
+                fprintf(stderr, "L%u: can't mod, stack too short\n", l);
+                fclose(fd);
+                free_all(file, cmd, *h);
+                exit(EXIT_FAILURE);
+        }
+        if ((*h)->n != 0)
+        {
+                *h = (*h)->next;
+                res = (*h)->n % tmp->n;
+                (*h)->n = res;
+                (*h)->prev = NULL;
+                free(tmp);
+        }
+        else
+        {
+                fprintf(stderr, "L%u: division by zero\n", l);
+                fclose(fd);
+                free_all(file, cmd, *h);
+                exit(EXIT_FAILURE);
+        }
+
 
 }
