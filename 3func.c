@@ -76,35 +76,34 @@ void fn_mul(stack_t **h, unsigned int l)
  * @l: line number
  * Return:
  */
-void mod (stack_t **h, unsigned int l)
+void mod(stack_t **h, unsigned int l)
 {
 	stack_t *tmp = *h;
 	int res = 0;
 
 
-        if (!h || !(*h) || !(*h)->next)
-        {
-                fprintf(stderr, "L%u: can't mod, stack too short\n", l);
-                fclose(fd);
-                free_all(file, cmd, *h);
-                exit(EXIT_FAILURE);
-        }
-        if ((*h)->n != 0)
-        {
-                *h = (*h)->next;
-                res = (*h)->n % tmp->n;
-                (*h)->n = res;
-                (*h)->prev = NULL;
-                free(tmp);
-        }
-        else
-        {
-                fprintf(stderr, "L%u: division by zero\n", l);
-                fclose(fd);
-                free_all(file, cmd, *h);
-                exit(EXIT_FAILURE);
-        }
-
+	if (!h || !(*h) || !(*h)->next)
+	{
+		fprintf(stderr, "L%u: can't mod, stack too short\n", l);
+		fclose(fd);
+		free_all(file, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	if ((*h)->n != 0)
+	{
+		*h = (*h)->next;
+		res = (*h)->n % tmp->n;
+		(*h)->n = res;
+		(*h)->prev = NULL;
+		free(tmp);
+	}
+	else
+	{
+		fprintf(stderr, "L%u: division by zero\n", l);
+		fclose(fd);
+		free_all(file, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
 
 }
 
@@ -157,10 +156,7 @@ void pstr(stack_t **h, unsigned int l)
 	{
 	if (t->n < 1 || t->n > 127)
 		break;
-	else
-	{
-		printf("%c", t->n);
-	}
+	printf("%c", t->n);
 	t = t->next;
 	}
 	printf("\n");

@@ -45,7 +45,7 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 		if (strcmp(s[0], op[i].opcode) == 0)
 		{
 			if (sq == 1 && strcmp("push", op[i].opcode) == 0)
-			    return (addend);
+				return (addend);
 			else
 				return (op[i].f);
 		}
