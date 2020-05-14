@@ -106,7 +106,7 @@ void push(stack_t **h, unsigned int l)
  *
  * @h: input head
  * @l: line
- * Return: z
+ * Return: nothing mean true
  */
 void addend(stack_t **h, unsigned int l)
 {
