@@ -23,3 +23,31 @@ void rotl(stack_t **h, unsigned int l)
 	}
 
 }
+
+/**
+ * rotr? (- rotates first items)?
+ *
+ * @h: input head
+ * @l: line number
+ * Return:
+ */
+void rotr(stack_t **h, unsigned int x)
+{
+        stack_t *t = NULL, *l = *h;
+
+        (void)x;
+        if (l && l->next)
+        {
+                while (l->next)
+		{
+			t = l;
+                        l = l->next;
+		}
+                t->next = NULL ;
+                l->prev = NULL;
+                l->next = *h;
+		(*h)->prev = l;
+		*h = l;
+        }
+
+}

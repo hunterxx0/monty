@@ -32,6 +32,7 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 		{"pchar", pchar},
 		{"pstr", pstr},
 		{"rotl", rotl},
+		{"rotr", rotr},
 		{NULL, NULL},
 	};
 	int i = 0;
