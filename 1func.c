@@ -5,7 +5,7 @@
  *
  * @h: input head
  * @l: line number
- * Return:
+ * Return:nothing(meantrue)
  */
 void pint(stack_t **h, unsigned int l)
 {
