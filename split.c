@@ -6,7 +6,7 @@
  * @i : current row of "p".
  * @width : width of the current row.
  * @h: first node.
- * Return:
+ * Return: nothing
  */
 
 void allocation(char **p, int i, int width, stack_t *h)
