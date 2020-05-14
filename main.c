@@ -41,6 +41,7 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 	}
 
 	fprintf(stderr, "L%d: unknown instruction %s\n", l, s[0]);
+	fclose(fd);
 	free_all(file, cmd, h);
 	exit(EXIT_FAILURE);
 
