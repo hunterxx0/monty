@@ -5,7 +5,7 @@
  *
  * @h: input head
  * @l: line
- * Return: 1 succes or -1 fail
+ * Return: nothing(mean true)
  */
 void pop(stack_t **h, unsigned int l)
 {
