@@ -59,7 +59,7 @@ int listsl(stack_t *h, int z)
  *
  * @h: input head
  * @l: input node
- * Return: n
+ * Return: nothing(mean true)
  */
 void push(stack_t **h, unsigned int l)
 {
