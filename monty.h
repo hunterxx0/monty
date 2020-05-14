@@ -67,7 +67,7 @@ void fn_div(stack_t **, unsigned int);
 void fn_mul(stack_t **, unsigned int);
 void mod(stack_t **, unsigned int);
 void pchar(stack_t **, unsigned int);
-
+void pstr(stack_t **, unsigned int);
 
 
 #endif /* HEADER_H */

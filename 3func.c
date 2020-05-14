@@ -109,7 +109,7 @@ void mod (stack_t **h, unsigned int l)
 }
 
 /**
- * pchar ? (- mod first items)?
+ * pchar ? (- str items)?
  *
  * @h: input head
  * @l: line number
@@ -134,4 +134,31 @@ void pchar(stack_t **h, unsigned int l)
 	}
 	else
 		printf("%c\n", (*h)->n);
+}
+
+/**
+ * pstr ? (- str items)?
+ *
+ * @h: input head
+ * @l: line number
+ * Return:
+ */
+void pstr(stack_t **h, unsigned int l)
+{
+	stack_t *t = *h;
+
+	(void)l;
+	if (!h || !*h)
+	{
+		printf("\n");
+		return;
+	}
+	while (t)
+	{
+	if (t->n < 1 || t->n > 127)
+		break;
+	else
+		printf("%c", t->n);
+	t = t->next;
+	}
 }
