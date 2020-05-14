@@ -155,13 +155,11 @@ void pstr(stack_t **h, unsigned int l)
 	}
 	while (t)
 	{
-	if (t->n < 0 || t->n > 127)
+	if (t->n < 1 || t->n > 127)
 		break;
 	else
 	{
 		printf("%c", t->n);
-		if (t->n == 0)
-			break;
 	}
 	t = t->next;
 	}
