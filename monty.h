@@ -40,7 +40,7 @@ typedef struct instruction_s
 	void (*f)(stack_t **, unsigned int);
 } ins_t;
 
-
+extern int sq;
 extern int kn;
 extern int *Num;
 extern char *file;
@@ -55,6 +55,7 @@ void free_list(stack_t *);
 void free_all(char *, char **, stack_t *);
 int listsl(stack_t *, int);
 void push(stack_t **, unsigned int);
+void addend(stack_t **, unsigned int);
 void pall(stack_t **, unsigned int);
 void pint(stack_t **, unsigned int);
 void pop(stack_t **, unsigned int);
@@ -70,7 +71,7 @@ void pchar(stack_t **, unsigned int);
 void pstr(stack_t **, unsigned int);
 void rotl(stack_t **, unsigned int);
 void rotr(stack_t **, unsigned int);
-
-
+void stack(stack_t **, unsigned int);
+void queue(stack_t **, unsigned int);
 
 #endif /* HEADER_H */

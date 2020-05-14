@@ -4,6 +4,7 @@ char *file = NULL;
 char **cmd = NULL;
 int *Num = NULL;
 int kn = 0;
+int sq = 0;
 FILE *fd;
 
 /**
@@ -33,6 +34,8 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 		{"pstr", pstr},
 		{"rotl", rotl},
 		{"rotr", rotr},
+		{"queue", queue},
+		{"stack", stack},
 		{NULL, NULL},
 	};
 	int i = 0;
@@ -40,7 +43,12 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 	while (op[i].opcode)
 	{
 		if (strcmp(s[0], op[i].opcode) == 0)
-			return (op[i].f);
+		{
+			if (sq == 1 && strcmp("push", op[i].opcode) == 0)
+			    return (addend);
+			else
+				return (op[i].f);
+		}
 		i++;
 	}
 

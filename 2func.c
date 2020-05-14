@@ -110,27 +110,50 @@ void push(stack_t **h, unsigned int l)
  */
 void addend(stack_t **h, unsigned int l)
 {
-	stack_t *z = (stack_t *)malloc(sizeof(stack_t));
-	stack_t *t = *h;
 
-	(void)l;
-	if (z == NULL)
+        stack_t *t = *h, *z = (stack_t *)malloc(sizeof(stack_t));
+        int x = 0;
+
+        if (z == NULL)
+        {
+                fprintf(stderr, "Error: malloc failed\n");
+                fclose(fd);
+                free_all(file, cmd, *h);
+                exit(EXIT_FAILURE);
+        }
+        if (!cmd[1])
+        {
+                fprintf(stderr, "L%d: usage: push integer\n", l);
+                free(z);
+                fclose(fd);
+                free_all(file, cmd, *h);
+                exit(EXIT_FAILURE);
+        }
+        else
+                checkstr(h, l);
+        if (!Num)
+        {
+                free(z);
+                fprintf(stderr, "L%u: usage: push integer\n", l);
+                fclose(fd);
+                free_all(file, cmd, *h);
+                exit(EXIT_FAILURE);
+        }
+        else
+                x = *Num;
+        z->n = x;
+        z->next = NULL;
+        z->prev = NULL;
+	if (!*h)
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		free_all(file, cmd, *h);
-		exit(EXIT_FAILURE);
-	}
-	z->n = 0;
-	z->next = NULL;
-	if (*h == NULL)
 		*h = z;
-	else
-	{
+		return;
+	}
 	while (t->next)
 		t = t->next;
 	t->next = z;
 	z->prev = t;
-	}
+
 }
 
 /**

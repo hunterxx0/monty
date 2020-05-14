@@ -25,7 +25,7 @@ void rotl(stack_t **h, unsigned int l)
 }
 
 /**
- * rotr? (- rotates first items)?
+ * rotr? (- rotates last items)?
  *
  * @h: input head
  * @l: line number
@@ -50,4 +50,34 @@ void rotr(stack_t **h, unsigned int x)
 		*h = l;
         }
 
+}
+
+/**
+ * stack? (- stack items)?
+ *
+ * @h: input head
+ * @l: line number
+ * Return:
+ */
+void stack(stack_t **h, unsigned int l)
+{
+	(void)h;
+	(void)l;
+
+	sq = 0;
+}
+
+/**
+ * queue? (- queue items)?
+ *
+ * @h: input head
+ * @l: line number
+ * Return:
+ */
+void queue(stack_t **h, unsigned int l)
+{
+        (void)h;
+        (void)l;
+
+        sq = 1;
 }
