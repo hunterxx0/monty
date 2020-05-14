@@ -10,7 +10,7 @@ void fn_div(stack_t **h, unsigned int l)
 	stack_t *tmp = *h;
 	int res = 0;
 
-	if (!h || !*h || listsl(*h, 1) < 2)
+	if (!h || !(*h) || !(*h)->next)
 	{
 		fprintf(stderr, "L%u: can't div, stack too short\n\n", l);
 		fclose(fd);
