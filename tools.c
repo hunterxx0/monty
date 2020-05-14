@@ -6,7 +6,7 @@
 * @c : string of words.
 * @x : delimiter between the words.
 *
-* Return: Integer.
+* Return: Integer(mean true)
 */
 
 int words(char *c, char x)
