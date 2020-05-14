@@ -72,7 +72,7 @@ void add(stack_t **h, unsigned int l)
  *
  * @h: input head
  * @l: line number
- * Return: n
+ * Return:nothing(meantrue)
  */
 void nop(stack_t **h, unsigned int l)
 {
