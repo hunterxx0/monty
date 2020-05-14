@@ -140,7 +140,7 @@ void pchar(stack_t **h, unsigned int l)
  *
  * @h: input head
  * @l: line number
- * Return:
+ * Return: nothing(mean true)
  */
 void pstr(stack_t **h, unsigned int l)
 {
