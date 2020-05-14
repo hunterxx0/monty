@@ -100,7 +100,7 @@ void mod (stack_t **h, unsigned int l)
 		*h = (*h)->next;
 		res = tmp->n % (*h)->n;
 		(*h)->n = res;
-		(*h)-prev = NULL;
+		(*h)->prev = NULL;
 		free(tmp);
 
 	}
