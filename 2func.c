@@ -157,7 +157,7 @@ void addend(stack_t **h, unsigned int l)
  *
  * @h: input head
  * @l: line num
- * Return: n
+ * Return: nothing(mean true)
  */
 void pall(stack_t **h, unsigned int l)
 {
