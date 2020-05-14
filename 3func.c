@@ -1,10 +1,12 @@
 #include "monty.h"
 
-/*
-*
-*
-*
-*/
+/**
+ * fn_div? (- div first items)?
+ *
+ * @h: input head
+ * @l: line number
+ * Return:
+ */
 void fn_div(stack_t **h, unsigned int l)
 {
 	stack_t *tmp = *h;
@@ -12,19 +14,18 @@ void fn_div(stack_t **h, unsigned int l)
 
 	if (!h || !(*h) || !(*h)->next)
 	{
-		fprintf(stderr, "L%u: can't div, stack too short\n\n", l);
+		fprintf(stderr, "L%u: can't div, stack too short\n", l);
 		fclose(fd);
 		free_all(file, cmd, *h);
 		exit(EXIT_FAILURE);
 	}
 	if ((*h)->n != 0)
 	{
-		res = (((tmp->next)->n) / (tmp->n));
-		tmp = tmp->next;
-		tmp->n = res;
-		free(*h);
-		tmp->prev = NULL;
-		*h = tmp;
+		*h = (*h)->next;
+		res = (*h)->n / tmp->n;
+		(*h)->n = res;
+		(*h)->prev = NULL;
+		free(tmp);
 	}
 	else
 	{
@@ -34,12 +35,16 @@ void fn_div(stack_t **h, unsigned int l)
 		exit(EXIT_FAILURE);
 	}
 }
-/*
-*
-*
-*
-*
-*/
+
+/**
+ * fn_mul? (- mul first items)?
+ *
+ * @h: input head
+ * @l: line number
+ * Return:
+ */
+
+
 void fn_mul(stack_t **h, unsigned int l)
 {
 	stack_t *tmp = *h;
@@ -64,16 +69,17 @@ void fn_mul(stack_t **h, unsigned int l)
 	}
 }
 
-/*
-*
-*
-*
-*
-*/
+/**
+ * mod? (- mod first items)?
+ *
+ * @h: input head
+ * @l: line number
+ * Return:
+ */
 void mod (stack_t **h, unsigned int l)
 {
 	stack_t *tmp = *h;
-	int val1 = 0, val2 = 0, res = 0;
+	int res = 0;
 
 	if (listsl(tmp, 1) < 2)
 	{
@@ -91,12 +97,10 @@ void mod (stack_t **h, unsigned int l)
 	}
 	else
 	{
-		val1 = tmp->next->n;
-		val2 = tmp->n;
-		res = val2 % val1;
-		tmp = tmp->next;
-		tmp->n = res;
-		*h = tmp;
+		*h = (*h)->next;
+		res = tmp->n % (*h)->n;
+		(*h)->n = res;
+		(*h)-prev = NULL;
 		free(tmp);
 
 	}
