@@ -163,4 +163,5 @@ void pstr(stack_t **h, unsigned int l)
 	}
 	t = t->next;
 	}
+	printf("\n");
 }
