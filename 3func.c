@@ -107,3 +107,31 @@ void mod (stack_t **h, unsigned int l)
 
 
 }
+
+/**
+ * pchar ? (- mod first items)?
+ *
+ * @h: input head
+ * @l: line number
+ * Return:
+ */
+void pchar(stack_t **h, unsigned int l)
+{
+
+	if (!h || !*h)
+	{
+		fprintf(stderr, "L%u: can't pchar, stack empty\n", l);
+		fclose(fd);
+		free_all(file, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	if ((*h)->n < 0 || (*h)->n > 128)
+	{
+		fprintf(stderr, "L%u: can't pchar, value out of range\n", l);
+		fclose(fd);
+		free_all(file, cmd, *h);
+		exit(EXIT_FAILURE);
+	}
+	else
+		printf("%c\n", (*h)->n);
+}

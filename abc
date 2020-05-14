@@ -1,6 +1,6 @@
-push 1
+push 72
+pchar
 push 5 fdsjqglmjfqsd
 push 10
 push 0
-div
 pall 

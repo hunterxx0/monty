@@ -29,6 +29,7 @@ void (*getf(char **s, stack_t *h, unsigned int l))(stack_t **h, unsigned int l)
 		{"div", fn_div},
 		{"mul", fn_mul},
 		{"mod", mod},
+		{"pchar", pchar},
 		{NULL, NULL},
 	};
 	int i = 0;
