@@ -35,7 +35,7 @@ void pop(stack_t **h, unsigned int l)
  *
  * @h: input head
  * @z: 1 for len 0 for sum
- * Return: n or x
+ * Return: lenght  or sum
  */
 int listsl(stack_t *h, int z)
 {
