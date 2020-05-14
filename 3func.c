@@ -5,7 +5,7 @@
  *
  * @h: input head
  * @l: line number
- * Return:
+ * Return: nothing(mean true)
  */
 void fn_div(stack_t **h, unsigned int l)
 {
